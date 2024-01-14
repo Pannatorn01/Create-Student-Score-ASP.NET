@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebApplication1.Models.Student>;
+@{
+    ViewData["Title"] = "Homepage";
+}
+
+@if (Model.Count()>0)
+{
+    <h1 class="text-center">Record Test Scores</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Student Score</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td> @student.Name</td>
+                    <td>@student.Score</td>
+                    <td>
+                        <a class="btn btn-warning"
+                           asp-controller="Student"
+                           asp-action="Edit"
+                           asp-route-id="@student.Id">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger"
+                           asp-controller="Student"
+                           asp-action="Delete"
+                           asp-route-id="@student.Id"
+                           onclick="return confirm('Would you like to delete this @student.Name? ')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-secondary">Data is empty</div>
+}
